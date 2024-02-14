@@ -33,6 +33,11 @@ function updateResult() {
     window.alert("Maximum AR is 60. Please enter a valid number.");
     return;
   }
+  if (currentAR >= targetAR) {
+    return window.alert(
+      "Current AR can't be greater than/same as Target AR. Please try again."
+    );
+  }
   if (currentExp > 1880200) {
     window.alert("Maximum AR Exp is 1,880,200. Please enter a valid amount.");
     return;
