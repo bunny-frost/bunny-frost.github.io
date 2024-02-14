@@ -31,15 +31,20 @@ function updateResult() {
 
   if (currentAR > 60 || targetAR > 60) {
     window.alert("Maximum AR is 60. Please enter a valid number.");
+    document.getElementById("result").value = 0;
     return;
   }
+
   if (currentAR >= targetAR) {
-    return window.alert(
+    window.alert(
       "Current AR can't be greater than/same as Target AR. Please try again."
     );
+    document.getElementById("result").value = 0;
+    return;
   }
   if (currentExp > 1880200) {
     window.alert("Maximum AR Exp is 1,880,200. Please enter a valid amount.");
+    document.getElementById("result").value = 0;
     return;
   }
   let result = calcExp(currentAR, targetAR, currentExp);
@@ -50,10 +55,47 @@ function updateResult() {
   document.getElementById("result").value = result.toLocaleString();
 }
 
-// Call updateResult when inputs change
-document.getElementById("current-ar").addEventListener("change", updateResult);
-document.getElementById("current-exp").addEventListener("change", updateResult);
-document.getElementById("target-ar").addEventListener("change", updateResult);
+// // Call updateResult when inputs change
+// document.getElementById("current-ar").addEventListener("change", updateResult);
+// document.getElementById("current-exp").addEventListener("change", updateResult);
+// document.getElementById("target-ar").addEventListener("change", updateResult);
+
+// // Initial update
+// updateResult();
+
+document.getElementById("current-ar").addEventListener("change", function () {
+  const currentAR = parseFloat(this.value);
+  if (!Number.isInteger(currentAR)) {
+    const nearestLowerInt = Math.floor(currentAR);
+    const nearestHigherInt = Math.ceil(currentAR);
+    window.alert(
+      `Please enter a valid integer value. Nearest valid values: ${nearestLowerInt} or ${nearestHigherInt}`
+    );
+  }
+  updateResult();
+});
+document.getElementById("current-exp").addEventListener("change", function () {
+  const currentExp = parseFloat(this.value);
+  if (!Number.isInteger(currentExp)) {
+    const nearestLowerInt = Math.floor(currentExp);
+    const nearestHigherInt = Math.ceil(currentExp);
+    window.alert(
+      `Please enter a valid integer value. Nearest valid values: ${nearestLowerInt} or ${nearestHigherInt}`
+    );
+  }
+  updateResult();
+});
+document.getElementById("target-ar").addEventListener("change", function () {
+  const targetAR = parseFloat(this.value);
+  if (!Number.isInteger(targetAR)) {
+    const nearestLowerInt = Math.floor(targetAR);
+    const nearestHigherInt = Math.ceil(targetAR);
+    window.alert(
+      `Please enter a valid integer value. Nearest valid values: ${nearestLowerInt} or ${nearestHigherInt}`
+    );
+  }
+  updateResult();
+});
 
 // Initial update
 updateResult();
