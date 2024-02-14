@@ -71,6 +71,7 @@ document.getElementById("current-ar").addEventListener("change", function () {
     window.alert(
       `Please enter a valid integer value. Nearest valid values: ${nearestLowerInt} or ${nearestHigherInt}`
     );
+    document.getElementById("result").value = 0;
   }
   updateResult();
 });
@@ -82,6 +83,7 @@ document.getElementById("current-exp").addEventListener("change", function () {
     window.alert(
       `Please enter a valid integer value. Nearest valid values: ${nearestLowerInt} or ${nearestHigherInt}`
     );
+  document.getElementById("result").value = 0;
   }
   updateResult();
 });
@@ -93,6 +95,7 @@ document.getElementById("target-ar").addEventListener("change", function () {
     window.alert(
       `Please enter a valid integer value. Nearest valid values: ${nearestLowerInt} or ${nearestHigherInt}`
     );
+    document.getElementById("result").value = 0;
   }
   updateResult();
 });
