@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/styles.css" />
+    <title>GI AR EXP Calculator</title>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <div class="logo">
+          <a href="#" class="logo-link">GI AR EXP Calculator</a>
+        </div>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#" class="nav-link">Calculator</a></li>
+            <li><a href="pages/about.html" class="nav-link">About</a></li>
+            <li>
+              <a href="https://www.pixiv.net/en/users/14225354" class="nav-link"
+                >Artwork</a
+              >
+            </li>
+          </ul>
+          <div class="hamburger-menu">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <section id="calculator">
+      <h2>Calculate Exp needed for desired AR</h2>
+      <div class="input-group">
+        <label>Current AR:</label>
+        <input type="number" id="current-ar" min="1" max="60" value="20" />
+        <label>Current Exp:</label>
+        <input type="number" id="current-exp" min="0" value="0" />
+      </div>
+      <div class="input-group">
+        <label>Target AR:</label>
+        <input type="number" id="target-ar" min="2" max="60" value="60" />
+        <label>Exp Required:</label>
+        <input type="text" readonly id="result" value="12053" />
+      </div>
+    </section>
+
+    <script src="assets/function.js"></script>
+    <script src="assets/index.js"></script>
+  </body>
+</html>
