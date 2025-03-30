@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    box-sizing: border-box;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    user-select: none;
+}
+
+body {
+    margin: 0;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("./Hu.Tao.full.3511224.jpg") center/cover no-repeat;
+}
+
+.container .main {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container .secondary {
+    width: 100%;
+    height: 20%;
+    align-content: center;
+    justify-content: center;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.main .profile {
+    display: flex;
+    border: 2px solid;
+    border-radius: 5px;
+    width: 600px;
+    height: 160px
+}
+
+.profile .picture {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    width: 160px;
+    height: 100%;
+    background: url("./favico.jpg") center/cover no-repeat;
+}
+
+.profile .stats {
+    border-left: 2px solid;
+    width: calc(100% - 160px);
+    height: 100%;
+}
+
+.stats .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid;
+    width: 100%;
+    height: 60px;
+}
+
+.stats .info {
+    display: flex;
+    height: calc(100% - 60px);
+    width: 100%;
+}
+
+.info .lvl {
+    border-right: 2px solid;
+    width: 50%;
+    height: 100%;
+}
+
+.info .clicks {
+    width: 50%;
+    height: 100%;
+}
+
+.head {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-size: small;
+}
+
+.count {
+    width: 100%;
+    height: calc(100% - 30px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+}
+
+.beginner {
+    color: #8BC34A;
+    border-color: #8BC34A;
+    transition: all 0.5s ease;
+}
+
+.intermediate {
+    color: #FFEB3B;
+    border-color: #FFEB3B;
+    transition: all 0.5s ease;
+}
+
+.experienced {
+    color: #FFC107;
+    border-color: #FFC107;
+    transition: all 0.5s ease;
+}
+
+.advanced {
+    color: #bb8d01;
+    border-color: #bb8d01;
+    transition: all 0.5s ease;
+}
+
+.expert {
+    color: #9c5fff;
+    border-color: #9c5fff;
+    transition: all 0.5s ease;
+}
+
+html * {
+    color: inherit !important;
+    border-color: inherit !important;
+}
+
+.secondary .credits {
+    border: 1px solid white;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
