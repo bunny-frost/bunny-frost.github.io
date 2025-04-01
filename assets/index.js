@@ -1,33 +1,58 @@
 const main = document.querySelector(".container .main");
 const clicks = document.querySelector(".info .clicks .count");
 const levels = document.querySelector(".info .lvl .count");
+const mny = document.querySelector(".info .mny .count");
+const resets = document.querySelector(".info .resets .count");
+const shopBtn = document.querySelector(".secondary .buttons .shop");
+const resBtn = document.querySelector(".secondary .buttons .reset");
+const shopWin = document.querySelector(".container .shop-win");
+const closBtn = document.querySelector(".container .shop-win .head .close");
+const clickBtn = document.querySelector(".container .shop-win .shop-menu table .group .click-rate");
+const clickPrice = document.querySelector(".container .shop-win .shop-menu table .click .price");
 
 let count = localStorage.getItem("count") ? parseInt(localStorage.getItem("count")) : 0;
-let level = localStorage.getItem("level") ? parseInt(localStorage.getItem("level")) : 1;
+let level = localStorage.getItem("level") ? parseInt(localStorage.getItem("level")) : 0;
 let exp = localStorage.getItem("exp") ? parseInt(localStorage.getItem("exp")) : 0;
+let rate = localStorage.getItem("rate") ? parseInt(localStorage.getItem("rate")) : 1;
+let money = localStorage.getItem("money") ? parseInt(localStorage.getItem("money")) : 0;
+let resCount = localStorage.getItem("resets") ? parseInt(localStorage.getItem("resets")) : 0;
 
-clicks.innerHTML = count;
-levels.innerHTML = level;
+clicks.innerHTML = count.toLocaleString();
+levels.innerHTML = level.toLocaleString();
+mny.innerHTML = money.toLocaleString();
+resets.innerHTML = resCount.toLocaleString();
+clickBtn.innerHTML = `<i class='bx bxs-pointer' ></i> x${rate+1}`
+clickPrice.innerHTML = `$${nextLvlMny(rate+1).toLocaleString()}`;
 
 function nextLvlExp(level) {
     return 100 * (level * level);
 }
 
-function updateColor(level) {
-    clicks.classList.remove("beginner", "intermediate", "experienced", "advanced", "expert");
-    levels.classList.remove("beginner", "intermediate", "experienced", "advanced", "expert");
+function nextLvlMny(rate) {
+    return 10 * (rate * rate * rate)
+}
+
+function updateMoney(click, lvl) {
+    let calculation = 0.2 * Math.pow(click, 0.3) * Math.pow(lvl, 0.95);
+    calculation = Math.floor(calculation);
+
+    money += calculation;
+    localStorage.setItem("money", money);
     
-    if (level <= 5) {
-        document.documentElement.classList.add("beginner")
-    } else if (level <= 10) {
-        document.documentElement.classList.add("intermediate")
-    } else if (level <= 15) {
-        document.documentElement.classList.add("experienced")
-    } else if (level <= 20) {
-        document.documentElement.classList.add("advanced")
-    } else {
-        document.documentElement.classList.add("expert")
-    }
+    mny.innerHTML = money.toLocaleString();
+}
+
+function updateColor(level) {
+    document.documentElement.classList.remove("beginner", "intermediate", "experienced", "advanced", "expert");
+    document.documentElement.classList.remove("beginner", "intermediate", "experienced", "advanced", "expert");
+    
+    let className = "";
+    if (level <= 15) className = "beginner";
+    else if (level <= 30) className = "intermediate";
+    else if (level <= 60) className = "experienced";
+    else if (level <= 100) className = "advanced";
+    else className = "expert";
+    document.documentElement.classList.add(className);
 }
 
 function updateLevel() {
@@ -39,13 +64,136 @@ function updateLevel() {
 
     updateColor(level);
 }
-updateColor(level);
-main.addEventListener("click", () => {
-    exp += 5;
-    count++;
 
-    clicks.innerHTML = count;
+updateColor(level);
+
+main.addEventListener("click", () => {
+    exp += 5 * rate;
+    count += rate;
+
+    clicks.innerHTML = count.toLocaleString();
     localStorage.setItem("count", count);
     localStorage.setItem("exp", exp);
     updateLevel();
+    updateMoney(count, level);
 });
+
+clickBtn.addEventListener("click",  () => {
+    let balance = localStorage.getItem("money");
+    if (balance < nextLvlMny(rate+1)) {
+        window.alert("Insufficient money!");
+    } else {
+        let updatedBal = balance - nextLvlMny(rate+1);
+        localStorage.setItem("money", updatedBal);
+        rate++
+        localStorage.setItem("rate", rate)
+        clickBtn.innerHTML = `<i class='bx bxs-pointer' ></i> x${rate+1}`
+        clickPrice.innerHTML = nextLvlMny(rate+1).toLocaleString();
+        location.reload()
+    }
+})
+
+resBtn.addEventListener("click", () => {
+    let reset = parseInt(localStorage.getItem("resets")) || 0;
+    
+    if (localStorage.length === 0 || 
+        (localStorage.length === 1 && localStorage.getItem("resets") !== null)) {
+        window.alert("Nothing to reset here. Maybe spam some clicks before resetting!");
+        return;
+    }
+    
+    let confirmReset = window.prompt("Type 'RESET' to confirm.");
+    if (confirmReset !== "RESET") {
+        window.alert("Reset canceled!");
+        return;
+    }
+
+    localStorage.clear();
+    localStorage.setItem("resets", reset + 1);
+    resets.innerHTML = (reset + 1).toLocaleString();
+});
+
+closBtn.addEventListener("click", () => {
+    shopWin.style.display = "none"
+})
+
+shopBtn.addEventListener("click", () => {
+    shopWin.style.display = "flex";
+    clickPrice.innerHTML = nextLvlMny(rate+1).toLocaleString();
+})
+
+function updateBoxShadowBasedOnClass() {
+    const classList = document.documentElement.classList;
+    const beginnerShadow = '0 0 15px rgba(139, 195, 74, 0.6)'
+    const intermediateShadow = '0 0 15px rgba(255, 235, 59, 0.6)'
+    const experiencedShadow = '0 0 15px rgba(255, 193, 7, 0.6)'
+    const advancedShadow = '0 0 15px rgba(187, 140, 1, 0.6)'
+    const expertShadow = '0 0 15px rgba(156, 95, 255, 0.6)'
+
+    if (classList.contains('beginner')) {
+        document.querySelector('.profile').style.boxShadow = beginnerShadow;
+        document.querySelector('.profile .picture').style.boxShadow = beginnerShadow;
+        document.querySelectorAll('.buttons button').forEach(button => {
+            button.style.boxShadow = beginnerShadow;
+        });
+        document.querySelector('.shop-win .shop-menu').style.boxShadow = beginnerShadow;
+        document.querySelector('.shop-menu .head').style.boxShadow = beginnerShadow;
+        document.querySelector('.shop-menu .primary').style.boxShadow = beginnerShadow;
+        document.querySelectorAll('.group button').forEach(button => {
+            button.style.boxShadow = beginnerShadow;
+        });
+    } else if (classList.contains('intermediate')) {
+        document.querySelector('.profile').style.boxShadow = intermediateShadow;
+        document.querySelector('.profile .picture').style.boxShadow = intermediateShadow;
+        document.querySelectorAll('.buttons button').forEach(button => {
+            button.style.boxShadow = intermediateShadow;
+        });
+        document.querySelector('.shop-win .shop-menu').style.boxShadow = intermediateShadow;
+        document.querySelector('.shop-menu .head').style.boxShadow = intermediateShadow;
+        document.querySelector('.shop-menu .primary').style.boxShadow = intermediateShadow;
+        document.querySelectorAll('.group button').forEach(button => {
+            button.style.boxShadow = intermediateShadow;
+        });
+    } else if (classList.contains('experienced')) {
+        document.querySelector('.profile').style.boxShadow = experiencedShadow;
+        document.querySelector('.profile .picture').style.boxShadow = experiencedShadow;
+        document.querySelectorAll('.buttons button').forEach(button => {
+            button.style.boxShadow = experiencedShadow;
+        });
+        document.querySelector('.shop-win .shop-menu').style.boxShadow = experiencedShadow;
+        document.querySelector('.shop-menu .head').style.boxShadow = experiencedShadow;
+        document.querySelector('.shop-menu .primary').style.boxShadow = experiencedShadow;
+        document.querySelectorAll('.group button').forEach(button => {
+            button.style.boxShadow = experiencedShadow;
+        });
+    } else if (classList.contains('advanced')) {
+        // Applying box-shadow for all relevant elements
+        document.querySelector('.profile').style.boxShadow = advancedShadow;
+        document.querySelector('.profile .picture').style.boxShadow = advancedShadow;
+        document.querySelectorAll('.buttons button').forEach(button => {
+            button.style.boxShadow = advancedShadow;
+        });
+        document.querySelector('.shop-win .shop-menu').style.boxShadow = advancedShadow;
+        document.querySelector('.shop-menu .head').style.boxShadow = advancedShadow;
+        document.querySelector('.shop-menu .primary').style.boxShadow = advancedShadow;
+        document.querySelectorAll('.group button').forEach(button => {
+            button.style.boxShadow = advancedShadow;
+        });
+    } else if (classList.contains('expert')) {
+        // Applying box-shadow for all relevant elements
+        document.querySelector('.profile').style.boxShadow = expertShadow;
+        document.querySelector('.profile .picture').style.boxShadow = expertShadow;
+        document.querySelectorAll('.buttons button').forEach(button => {
+            button.style.boxShadow = expertShadow;
+        });
+        document.querySelector('.shop-win .shop-menu').style.boxShadow = expertShadow;
+        document.querySelector('.shop-menu .head').style.boxShadow = expertShadow;
+        document.querySelector('.shop-menu .primary').style.boxShadow = expertShadow;
+        document.querySelectorAll('.group button').forEach(button => {
+            button.style.boxShadow = expertShadow;
+        });
+    }
+}
+
+
+updateBoxShadowBasedOnClass()

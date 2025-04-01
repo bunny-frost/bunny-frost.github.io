@@ -20,6 +20,7 @@ body {
     width: 100%;
     height: 100%;
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("./Hu.Tao.full.3511224.jpg") center/cover no-repeat;
+    position: relative;
 }
 
 .container .main {
@@ -32,11 +33,11 @@ body {
 
 .container .secondary {
     width: 100%;
-    height: 20%;
+    height: calc(20% - 30px);
     align-content: center;
     justify-content: center;
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
     justify-content: center;
 }
 
@@ -45,14 +46,14 @@ body {
     border: 2px solid;
     border-radius: 5px;
     width: 600px;
-    height: 160px
+    height: 260px;
 }
 
 .profile .picture {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     width: 160px;
-    height: 100%;
+    height: 160px;
     background: url("./favico.jpg") center/cover no-repeat;
 }
 
@@ -66,26 +67,28 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 2px solid;
+    /* border-bottom: 2px solid; */
     width: 100%;
     height: 60px;
 }
 
 .stats .info {
     display: flex;
-    height: calc(100% - 60px);
+    height: calc(100% - 160px);
     width: 100%;
 }
 
-.info .lvl {
+.info .lvl, .info .mny {
     border-right: 2px solid;
     width: 50%;
-    height: 100%;
+    height: 100px;
+    border-top: 2px solid;
 }
 
-.info .clicks {
+.info .clicks, .info .resets {
     width: 50%;
     height: 100%;
+    border-top: 2px solid;
 }
 
 .head {
@@ -103,7 +106,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 48px;
+    font-size: 36px;
 }
 
 .beginner {
@@ -141,11 +144,226 @@ html * {
     border-color: inherit !important;
 }
 
-.secondary .credits {
-    border: 1px solid white;
+.credits {
+    border-top: 1px solid;
     width: 100%;
     height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.buttons {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttons button {
+    width: 60px;
+    height: 50px;
+    background-color: transparent;
+    font-size: medium;
+    border-radius: 10px;
+    transition: all 0.5s ease-in-out;
+    margin: 0 5px;
+    box-shadow: none;
+}
+
+.buttons button:hover {
+    width: 70px;
+    height: 60px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.buttons button:active {
+    background-color: rgba(0, 0, 0, 0.3);
+    transform: scale(0.95);
+}
+
+button i {
+    font-size: 30px;
+    color: #fff;
+}
+
+.container .shop-win {
+    position: absolute;
+    backdrop-filter: blur(5px);
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* display: none; */
+}
+
+.shop-win .shop-menu {
+    border: 2px solid;
+    border-radius: 5px;
+    width: 600px;
+    height: 260px;
+    background-color: rgba(27, 10, 10, 0.5);
+}
+
+.shop-menu .head {
+    padding: 5px;
+    display: flex;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 32px;
+}
+
+.head i:hover {
+    cursor: pointer;
+}
+
+.shop-menu .primary {
+    width: 100%;
+    height: calc(100% - 50px);
+}
+
+.shop-menu .primary table {
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+}
+
+.shop-menu .primary table .group {
+    padding: 10px;
+    margin-top: 5px;
+    height: 50px;
+}
+
+table .table-head {
+    height: 20px;
+    font-size: 24px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.shop-menu .primary table .group .label,
+.shop-menu .primary table .group .price, .shop-menu .primary table .table-head .label,
+.shop-menu .primary table .table-head .price{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.shop-menu .primary table .group .label, .table-head .label {
+    width: 70%;
+    text-align: center;
+    border-right: 2px solid;
+}
+
+.shop-menu .primary table .group .price {
+    text-align: center;
+    width: 30%;
+    font-size: 22px;
+}
+
+.group button {
+    background: transparent;
+    border-radius: 10px;
+    font-size: 20px;
+    width: 80px;
+    height: 35px;
+    transition: 0.5s ease-in-out;
+}
+
+.group button:hover {
+    background: transparent;
+    font-size: 20px;
+    width: 85px;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.group button:active {
+    transform: none;
+    box-shadow: none;
+}
+
+.group button i {
+    font-size: 18px;
+}
+
+
+@media (max-width: 500px) {
+    .main .profile {
+        width: 400px;
+        height: 260px;
+    }
+    
+    .profile .picture {
+        width: 130px;
+        height: 130px;
+    }
+    
+    .profile .stats {
+        border-left: 2px solid;
+        width: calc(100% - 130px);
+        height: 100%;
+    }
+    
+    .stats .header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 60px;
+    }
+    
+    .stats .info {
+        display: flex;
+        height: calc(100% - 160px);
+        width: 100%;
+    }
+    
+    .info .lvl, .info .mny {
+        border-right: 2px solid;
+        width: 50%;
+        height: 100px;
+        border-top: 2px solid;
+    }
+    
+    .info .clicks, .info .resets {
+        width: 50%;
+        height: 100%;
+        border-top: 2px solid;
+    }
+    
+    .head {
+        width: 100%;
+        height: 30px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        font-size: medium;
+    }
+    
+    .count {
+        width: 100%;
+        height: calc(100% - 30px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+    }
+
+    .shop-win .shop-menu {
+        width: 400px;
+        height: 260px;
+    }
 }

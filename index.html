@@ -5,10 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/styles.css">
     <link rel="shortcut icon" href="assets/favico.jpg" type="image/x-icon">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Spam Clicker</title>
 </head>
 <body>
     <div class="container">
+        <div class="shop-win">
+            <div class="shop-menu">
+                <div class="head">
+                    <h4>SHOP MENU</h4> <i class='bx bx-x close'></i>
+                </div>
+                <div class="primary">
+                    <table>
+                        <tr class="table-head">
+                            <td class="label">items</td>
+                            <td class="price">Price</td>
+                        </tr>
+                        <tr class="group click">
+                            <td class="label">
+                                <button class="click-rate">
+                                    <i class='bx bxs-pointer' ></i> x2
+                                </button>
+                            </td>
+                            <td class="price"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
         <div class="main">
             <div class="profile">
                 <div class="picture"></div>
@@ -20,10 +45,26 @@
                         <div class="lvl"><div class="head">LVL</div><div class="count">0</div></div>
                         <div class="clicks"><div class="head">CLICKS</div><div class="count">0</div></div>
                     </div>
+                    <div class="info">
+                        <div class="mny"><div class="head">$</div><div class="count">0</div></div>
+                        <div class="resets"><div class="head">Resets</div><div class="count">0</div></div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="secondary"><div class="credits">&copy; 2025 Spam Clicker. All rights reserved. | Artwork by: nisikm (弐色)</div></div>
+        <div class="secondary">
+            <div class="buttons">
+                <button class="reset">
+                    <i class='bx bx-reset'></i>
+                </button>
+                <button class="shop">
+                    <i class='bx bx-cart-alt' ></i>
+                </button>
+            </div>
+        </div>
+        <!-- <div class="credits">
+            Artwork by: nisikm (弐色)
+        </div> -->
     </div>
     
     <script src="assets/index.js"></script>
