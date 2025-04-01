@@ -145,7 +145,7 @@ html * {
 }
 
 .credits {
-    border-bottom: 1px solid;
+    border-bottom: 2px solid;
     width: 100%;
     height: 30px;
     display: flex;
