@@ -111,6 +111,7 @@ resBtn.addEventListener("click", () => {
     localStorage.clear();
     localStorage.setItem("resets", reset + 1);
     resets.innerHTML = (reset + 1).toLocaleString();
+    location.reload();
 });
 
 closBtn.addEventListener("click", () => {
