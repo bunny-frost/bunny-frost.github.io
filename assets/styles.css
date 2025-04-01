@@ -168,7 +168,7 @@ html * {
     background-color: transparent;
     font-size: medium;
     border-radius: 10px;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.3s ease-in-out;
     margin: 0 5px;
     box-shadow: none;
 }
@@ -278,7 +278,7 @@ table .table-head {
     font-size: 20px;
     width: 80px;
     height: 35px;
-    transition: 0.5s ease-in-out;
+    transition: 0.3s ease-in-out;
 }
 
 .group button:hover {
