@@ -53,8 +53,6 @@ function updateMoney(rate, lvl) {
   let calculation = 0.2 * Math.pow(count - rate + 1, 0.3) * Math.pow(lvl, 0.95);
   calculation = Math.max(1, Math.round(calculation));
 
-  console.log("Calculated Money Per Click:", calculation);
-
   money += calculation * rate;
   localStorage.setItem("money", money);
 
@@ -146,7 +144,6 @@ resBtn.addEventListener("click", () => {
   let last_rate = parseInt(localStorage.getItem("rate")) || 0;
   let next_bal =
     10 * Math.pow(count, 0.609) * Math.pow(level, 0.95) + last_mny / 2;
-  console.log(next_bal.toLocaleString());
 
   if (
     localStorage.length === 0 ||
@@ -280,3 +277,73 @@ function updateBoxShadowBasedOnClass() {
   }
 }
 updateBoxShadowBasedOnClass();
+
+// ChatGpt Generated //
+
+const fileInput = document.getElementById("file-input");
+const profilePicture = document.getElementById("profile-picture");
+
+// Check if there's a saved image in localStorage and apply it
+const savedImage = localStorage.getItem("profileImage");
+if (savedImage) {
+  profilePicture.style.backgroundImage = `url(${savedImage})`;
+}
+
+// Function to resize the image before saving it
+function resizeImage(file, maxWidth = 300, maxHeight = 300) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+      img.src = event.target.result;
+    };
+
+    reader.readAsDataURL(file);
+
+    img.onload = function () {
+      // Create a canvas to resize the image
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      // Calculate new dimensions
+      let width = img.width;
+      let height = img.height;
+
+      if (width > maxWidth || height > maxHeight) {
+        const ratio = Math.min(maxWidth / width, maxHeight / height);
+        width = width * ratio;
+        height = height * ratio;
+      }
+
+      // Resize the image on the canvas
+      canvas.width = width;
+      canvas.height = height;
+      ctx.drawImage(img, 0, 0, width, height);
+
+      // Convert the resized image to a Data URL
+      const resizedDataUrl = canvas.toDataURL("image/jpeg", 0.7); // 0.7 is the quality (0 to 1)
+      resolve(resizedDataUrl);
+    };
+
+    img.onerror = reject;
+  });
+}
+
+// Listen for changes on the file input
+fileInput.addEventListener("change", (event) => {
+  const file = event.target.files[0]; // Get the selected file
+  if (file) {
+    resizeImage(file)
+      .then((resizedDataUrl) => {
+        // Set the background image of the profile picture
+        profilePicture.style.backgroundImage = `url(${resizedDataUrl})`;
+
+        // Store the image in localStorage
+        localStorage.setItem("profileImage", resizedDataUrl);
+      })
+      .catch((err) => {
+        console.error("Image resize error:", err);
+      });
+  }
+});
